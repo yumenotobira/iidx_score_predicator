@@ -8,6 +8,9 @@ module TextageParser
       @height = table.attributes["height"].value.to_i
       @beat = @height / 128.0
       @number = table.css("th").children.text.to_i
+      if @number == 0
+        @number = 500 # 最後に小節番号が割り振られていないときがある
+      end
       # 0: ノーツなし, 1: ノーツあり
       @notes = Array.new(16){ Array.new(MAX_BEAT * @beat){ "0" } }
       @soflans = Array.new(MAX_BEAT * @beat){ 0 }
